@@ -1,74 +1,77 @@
-import { Image, Text, View } from "react-native";
-import React, { useEffect } from "react";
+import { View, Text, Image, Pressable } from "react-native";
+import React from "react";
 import { StatusBar } from "expo-status-bar";
-import "../../global.css";
-import { heightPercentageToDP as hp } from "react-native-responsive-screen";
-import Animated, {
-  useSharedValue,
-  withSpring,
-  withDelay,
-} from "react-native-reanimated";
+import { LinearGradient } from "expo-linear-gradient";
+import Animated, { FadeInDown } from "react-native-reanimated";
 import { useRouter } from "expo-router";
+import "../../global.css";
+import {
+  heightPercentageToDP as hp,
+  widthPercentageToDP as wp,
+} from "react-native-responsive-screen";
 
-const IndexScreen = () => {
-  const ring1Padding = useSharedValue(0);
-  const ring2Padding = useSharedValue(0);
-
+const WelcomeScreen = () => {
   const router = useRouter();
 
-  useEffect(() => {
-    // Set initial padding
-    ring1Padding.value = 0;
-    ring2Padding.value = 0;
-
-    // Delay and animation for rings
-    ring1Padding.value = withDelay(300, withSpring(hp(5)));
-    ring2Padding.value = withDelay(300, withSpring(hp(5.5)));
-
-    // Redirect after animation
-    setTimeout(() => {
-      router.replace("home");
-    }, 2200);
-  }, []);
-
   return (
-    <View className="items-center justify-center flex-1 space-y-10 bg-[#101010]">
-      <StatusBar style="light" />
+    <View className="relative flex-1">
+      <StatusBar style="dark" />
+      <Image
+        source={require("../../assets/images/welcome.png")}
+        className="absolute w-full h-full"
+        resizeMode="cover"
+      />
 
-      {/* Logo with rings */}
       <Animated.View
-        className="rounded-full bg-white/20"
-        style={{ padding: ring2Padding }}
+        entering={FadeInDown.duration(600)}
+        className="z-10 flex-1"
       >
-        <Animated.View
-          className="rounded-full bg-white/20"
-          style={{ padding: ring1Padding }}
-        >
-          <Image
-            source={require("../../assets/images/welcome.png")}
-            className="rounded-full"
-            style={{ width: hp(20), height: hp(20) }}
-          />
-        </Animated.View>
-      </Animated.View>
+        <LinearGradient
+          colors={[
+            "rgba(255,255,255,0)",
+            "rgba(255,255,255,0.5)",
+            "white",
+            "white",
+          ]}
+          className="absolute bottom-0 w-full h-[65%]"
+          start={{ x: 0.5, y: 0 }}
+          end={{ x: 0.5, y: 0.8 }}
+        />
 
-      {/* Title & Punchline */}
-      <View className="flex items-center mt-5">
-        <Text
-          className="font-bold tracking-widest text-white"
-          style={{ fontSize: hp(7) }}
-        >
-          Wallhub
-        </Text>
-        <Text
-          className="font-medium tracking-widest text-white"
-          style={{ fontSize: hp(2) }}
-        >
-          Your Screen, Your Story.
-        </Text>
-      </View>
+        {/* Content */}
+        <View className="items-center justify-end flex-1 gap-3">
+          <Animated.Text
+            entering={FadeInDown.delay(400).springify()}
+            style={{ fontSize: hp(7) }}
+            className="font-bold text-gray-900"
+          >
+            Wallhub
+          </Animated.Text>
+          <Animated.Text
+            entering={FadeInDown.delay(500).springify()}
+            className="mb-2 font-medium tracking-wide"
+            style={{ fontSize: hp(2.2) }}
+          >
+            Your Hub for Stunning Screens
+          </Animated.Text>
+          <Animated.View entering={FadeInDown.delay(600).springify()}>
+            <Pressable
+              onPress={() => router.push("home")}
+              style={{ width: wp(83) }}
+              className="py-4 mb-12 bg-gray-900 rounded-2xl"
+            >
+              <Text
+                className="font-medium tracking-wide text-center text-white"
+                style={{ fontSize: hp(3.2) }}
+              >
+                Start Explore
+              </Text>
+            </Pressable>
+          </Animated.View>
+        </View>
+      </Animated.View>
     </View>
   );
 };
 
-export default IndexScreen;
+export default WelcomeScreen;
