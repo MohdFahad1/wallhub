@@ -7,12 +7,13 @@ import {
   Image,
   TouchableOpacity,
 } from "react-native";
-import ScreenWrapper from "../../components/ScreenWrapper";
+import ScreenWrapper from "../../../components/ScreenWrapper";
 import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from "react-native-responsive-screen";
 import Animated, { FadeInDown } from "react-native-reanimated";
+import { useRouter } from "expo-router";
 
 const AnimatedTouchableOpacity =
   Animated.createAnimatedComponent(TouchableOpacity);
@@ -21,6 +22,18 @@ const Categories = () => {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  const router = useRouter();
+
+  const handleCategoryPass = (category) => {
+    router.push({
+      pathname: "/(tabs)/categoires/wallpapers",
+      params: {
+        categoryId: category._id,
+        categoryName: category.name,
+      },
+    });
+  };
 
   const fetchCategories = async () => {
     try {
@@ -46,7 +59,7 @@ const Categories = () => {
 
   const renderItem = ({ item, index }) => (
     <AnimatedTouchableOpacity
-      entering={FadeInDown.delay(index * 200).springify()}
+      entering={FadeInDown.delay(index * 100).springify()}
     >
       <View
         className="items-center justify-center mb-5 overflow-hidden rounded-[35px]"
