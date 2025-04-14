@@ -36,6 +36,34 @@ const WallpaperDetail = () => {
     }
   };
 
+  const handleDownloadImage = async () => {
+    try {
+      const { status } = await MediaLibrary.requestPermissionsAsync();
+
+      if (status !== "granted") {
+        Alert.alert(
+          "Permission Required",
+          "Media library access is required to save the image."
+        );
+
+        return;
+      }
+
+      const fileUri =
+        FileSystem.documentDirectory + `${name ? name : "wallpaper"}.jpg`;
+      const { uri } = await FileSystem.downloadAsync(image, fileUri);
+
+      const asset = await MediaLibrary.createAssetAsync(uri);
+
+      await MediaLibrary.createAlbumAsync("Wallhub", asset, false);
+
+      Alert.alert("Success", "Image saved to gallery successfully");
+    } catch (error) {
+      console.error("Download error:", error);
+      Alert.alert("Error", "Failed to save the image.");
+    }
+  };
+
   return (
     <View className="flex-1">
       <StatusBar style="light" />
@@ -56,7 +84,7 @@ const WallpaperDetail = () => {
           <FontAwesome name="heart-o" size={25} color="#fff" />
         </TouchableOpacity>
 
-        <TouchableOpacity>
+        <TouchableOpacity onPress={handleDownloadImage}>
           <Octicons name="download" size={28} color="#fff" className="ml-1" />
         </TouchableOpacity>
 
