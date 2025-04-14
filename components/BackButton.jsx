@@ -11,12 +11,12 @@ const BackButton = () => {
       className="absolute"
       onPress={() => router.back()}
       style={{
-        backgroundColor: "rgba(0,0,0,0.07)",
+        backgroundColor: "rgba(242, 242, 242, 0.8)",
         top: 40,
         left: 20,
         alignSelf: "flex-start",
         padding: 5,
-        borderRadius: 20,
+        borderRadius: 10,
       }}
     >
       <Text>
