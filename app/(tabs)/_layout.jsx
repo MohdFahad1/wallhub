@@ -25,7 +25,7 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="categories/index"
+        name="categories"
         options={{
           title: "Categories",
           tabBarIcon: ({ color }) => (
@@ -49,12 +49,6 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => (
             <FontAwesome size={28} name="heart" color={color} />
           ),
-        }}
-      />
-      <Tabs.Screen
-        name="categories/wallpapers/index"
-        options={{
-          href: null,
         }}
       />
     </Tabs>
