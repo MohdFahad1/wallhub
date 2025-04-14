@@ -59,8 +59,9 @@ const WallpaperDetail = () => {
 
       Alert.alert("Success", "Image saved to gallery successfully");
     } catch (error) {
-      console.error("Download error:", error);
+      // console.error("Download error:", error);
       Alert.alert("Error", "Failed to save the image.");
+      return;
     }
   };
 

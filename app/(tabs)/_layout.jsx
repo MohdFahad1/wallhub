@@ -51,6 +51,12 @@ export default function TabLayout() {
           ),
         }}
       />
+      <Tabs.Screen
+        name="categories/wallpapers/index"
+        options={{
+          href: null,
+        }}
+      />
     </Tabs>
   );
 }

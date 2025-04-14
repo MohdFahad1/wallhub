@@ -25,16 +25,6 @@ const Categories = () => {
 
   const router = useRouter();
 
-  const handleCategoryPass = (category) => {
-    router.push({
-      pathname: "/(tabs)/categoires/wallpapers",
-      params: {
-        categoryId: category._id,
-        categoryName: category.name,
-      },
-    });
-  };
-
   const fetchCategories = async () => {
     try {
       const response = await fetch(
@@ -59,6 +49,15 @@ const Categories = () => {
 
   const renderItem = ({ item, index }) => (
     <AnimatedTouchableOpacity
+      onPress={() =>
+        router.push({
+          pathname: "/categories/wallpapers",
+          params: {
+            category: item._id,
+            name: item.name,
+          },
+        })
+      }
       entering={FadeInDown.delay(index * 100).springify()}
     >
       <View
