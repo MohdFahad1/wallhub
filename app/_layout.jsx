@@ -5,6 +5,7 @@ const Layout = () => {
     <Stack screenOptions={{ headerShown: false }}>
       <Stack.Screen name="(splash)/index" />
       <Stack.Screen name="(tabs)" />
+      <Stack.Screen name="wallpaperDetail/[id]" />
     </Stack>
   );
 };

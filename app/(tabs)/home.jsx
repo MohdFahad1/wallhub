@@ -7,15 +7,37 @@ import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 
 const Home = () => {
   const [wallpapers, setWallpapers] = useState([]);
+  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const [hasMore, setHasMore] = useState(true);
 
   const fetchWallpapers = async () => {
+    if (loading || !hasMore) return;
+
+    setLoading(true);
+
     try {
       const response = await axios.get(
-        "https://wallhub-server.vercel.app/api/wallpapers"
+        "https://wallhub-server.vercel.app/api/wallpapers",
+        {
+          params: {
+            page,
+          },
+        }
       );
-      setWallpapers(response?.data?.wallpapers);
+
+      const newWallpapers = response?.data?.wallpapers;
+
+      if (!newWallpapers || newWallpapers.length === 0) {
+        setHasMore(false);
+      } else {
+        setWallpapers((prev) => [...prev, ...newWallpapers]);
+        setPage(page + 1);
+      }
     } catch (error) {
       console.log("Error: ", error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -28,7 +50,11 @@ const Home = () => {
       <Text className="font-bold text-center" style={{ fontSize: hp(4) }}>
         Wallpapers
       </Text>
-      <WallpaperCard wallpapers={wallpapers} />
+      <WallpaperCard
+        wallpapers={wallpapers}
+        loadMore={fetchWallpapers}
+        loading={loading}
+      />
     </ScreenWrapper>
   );
 };

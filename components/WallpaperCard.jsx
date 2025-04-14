@@ -3,8 +3,10 @@ import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 import MasonryList from "@react-native-seoul/masonry-list";
 import Animated, { FadeInDown } from "react-native-reanimated";
 import { View, ActivityIndicator, Pressable, Image } from "react-native";
+import { useRouter } from "expo-router";
 
-const WallpaperCard = ({ wallpapers }) => {
+const WallpaperCard = ({ wallpapers, loadMore, loading }) => {
+  const router = useRouter();
   return (
     <View
       className="items-center justify-center flex-1"
@@ -17,7 +19,14 @@ const WallpaperCard = ({ wallpapers }) => {
           data={wallpapers}
           numColumns={2}
           showsVerticalScrollIndicator={false}
-          renderItem={({ item, i }) => <Wallpaper item={item} index={i} />}
+          onEndReached={loadMore}
+          onEndReachedThreshold={0.5}
+          ListFooterComponent={
+            loading ? <ActivityIndicator size={"large"} color={"#000"} /> : null
+          }
+          renderItem={({ item, i }) => (
+            <Wallpaper item={item} index={i} router={router} />
+          )}
         />
       )}
     </View>
@@ -26,7 +35,7 @@ const WallpaperCard = ({ wallpapers }) => {
 
 export default WallpaperCard;
 
-const Wallpaper = ({ item, index }) => {
+const Wallpaper = ({ item, index, router }) => {
   let isEven = index % 2 == 0;
   return (
     <Animated.View
@@ -34,7 +43,7 @@ const Wallpaper = ({ item, index }) => {
         .springify()
         .delay(index * 100)
         .damping(20)}
-      className="flex"
+      className="flex bg-gray-300"
       style={{ width: "100%", marginTop: 7 }}
     >
       <Pressable
@@ -43,6 +52,12 @@ const Wallpaper = ({ item, index }) => {
           paddingLeft: isEven ? 0 : 5,
           paddingRight: isEven ? 5 : 0,
         }}
+        onPress={() =>
+          router.push({
+            pathname: `/wallpaperDetail/${item._id}`,
+            params: { image: item.image, name: item.name },
+          })
+        }
       >
         <Image
           source={{ uri: item.image }}
