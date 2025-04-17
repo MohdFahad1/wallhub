@@ -68,27 +68,33 @@ const WallpaperDetail = () => {
     }
   };
 
-  const handleSave = async () => {
+  const handleToggleFavourite = async () => {
     try {
       const raw = await AsyncStorage.getItem("favourite-wallpapers");
       const favs = raw ? JSON.parse(raw) : [];
 
-      if (id && favs.find((w) => w.id === id)) {
-        return Alert.alert(
-          "Already Saved",
-          "This wallpaper is in your favourites."
+      if (isFavourite) {
+        // remove
+        const updated = favs.filter((w) => w.id !== id);
+        await AsyncStorage.setItem(
+          "favourite-wallpapers",
+          JSON.stringify(updated)
         );
+        setIsFavourite(false);
+        Alert.alert("Removed", "Wallpaper removed from favourites.");
+      } else {
+        // add
+        const newFav = { id, image, name };
+        favs.push(newFav);
+        await AsyncStorage.setItem(
+          "favourite-wallpapers",
+          JSON.stringify(favs)
+        );
+        setIsFavourite(true);
+        Alert.alert("Saved", "Wallpaper saved to favourites.");
       }
-
-      const newFav = { id, image, name };
-      favs.push(newFav);
-      await AsyncStorage.setItem("favourite-wallpapers", JSON.stringify(favs));
-
-      setIsFavourite(true);
-      Alert.alert("Saved", "Wallpaper saved to favourites successfully.");
     } catch (error) {
-      console.error("Error saving wallpaper:", error);
-      Alert.alert("Error", "Could not save wallpaper.");
+      Alert.alert("Error", "Could not update favourites.");
     }
   };
 
@@ -122,7 +128,7 @@ const WallpaperDetail = () => {
           position: "absolute",
         }}
       >
-        <TouchableOpacity onPress={handleSave}>
+        <TouchableOpacity onPress={handleToggleFavourite}>
           <FontAwesome
             name={isFavourite ? "heart" : "heart-o"}
             size={25}
