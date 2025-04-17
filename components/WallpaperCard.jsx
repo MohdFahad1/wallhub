@@ -10,7 +10,7 @@ const WallpaperCard = ({ wallpapers, loadMore, loading }) => {
   return (
     <View
       className="items-center justify-center flex-1"
-      style={{ paddingHorizontal: 5 }}
+      style={{ paddingHorizontal: 5, marginBottom: 50 }}
     >
       {wallpapers.length === 0 ? (
         <ActivityIndicator size="large" color="#000" />

@@ -82,7 +82,14 @@ const Categories = () => {
   return (
     <ScreenWrapper>
       <Header heading={"Categories"} />
-      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+      <View
+        style={{
+          flex: 1,
+          alignItems: "center",
+          justifyContent: "center",
+          marginBottom: 55,
+        }}
+      >
         {loading ? (
           <ActivityIndicator size="large" color="#000" />
         ) : (
