@@ -4,7 +4,7 @@ import ScreenWrapper from "../../components/ScreenWrapper";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import WallpaperCard from "../../components/WallpaperCard";
 import { useIsFocused } from "@react-navigation/native";
-import { heightPercentageToDP as hp } from "react-native-responsive-screen";
+import Header from "../../components/Header";
 
 const Favourites = () => {
   const [favorites, setFavourites] = useState([]);
@@ -27,9 +27,7 @@ const Favourites = () => {
 
   return (
     <ScreenWrapper>
-      <Text style={{ fontSize: hp(3) }} className="font-bold text-center ">
-        Favourites
-      </Text>
+      <Header heading={"Favourites"} mb={0} />
       {favorites.length === 0 ? (
         <Text
           style={{ fontSize: hp(2) }}

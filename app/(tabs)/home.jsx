@@ -4,6 +4,7 @@ import axios from "axios";
 import WallpaperCard from "../../components/WallpaperCard";
 import ScreenWrapper from "../../components/ScreenWrapper";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
+import Header from "../../components/Header";
 
 const Home = () => {
   const [wallpapers, setWallpapers] = useState([]);
@@ -47,9 +48,7 @@ const Home = () => {
 
   return (
     <ScreenWrapper>
-      <Text className="font-bold text-center" style={{ fontSize: hp(4) }}>
-        Wallpapers
-      </Text>
+      <Header heading={"Wallpapers"} mb={0} />
       <WallpaperCard
         wallpapers={wallpapers}
         loadMore={fetchWallpapers}

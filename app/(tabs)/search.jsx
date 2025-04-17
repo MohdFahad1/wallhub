@@ -12,6 +12,7 @@ import axios from "axios";
 import WallpaperCard from "../../components/WallpaperCard";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 import Entypo from "@expo/vector-icons/Entypo";
+import Header from "../../components/Header";
 
 const Search = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -45,9 +46,7 @@ const Search = () => {
   return (
     <ScreenWrapper>
       <View className="px-3">
-        <Text className="font-bold text-center" style={{ fontSize: hp(4) }}>
-          Search Wallpapers
-        </Text>
+        <Header heading={"Search Wallpapers"} mb={0} />
         <View className="border-[1px] rounded-xl h-fit w-fit my-3 flex-row items-center justify-between px-3">
           <TextInput
             placeholder="Search wallpapers..."

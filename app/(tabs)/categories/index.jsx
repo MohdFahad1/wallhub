@@ -14,6 +14,7 @@ import {
 } from "react-native-responsive-screen";
 import Animated, { FadeInDown } from "react-native-reanimated";
 import { useRouter } from "expo-router";
+import Header from "../../../components/Header";
 
 const AnimatedTouchableOpacity =
   Animated.createAnimatedComponent(TouchableOpacity);
@@ -80,16 +81,7 @@ const Categories = () => {
 
   return (
     <ScreenWrapper>
-      <Text
-        style={{
-          fontSize: hp(4),
-          marginBottom: 10,
-          textAlign: "center",
-          fontWeight: "bold",
-        }}
-      >
-        Categories
-      </Text>
+      <Header heading={"Categories"} />
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
         {loading ? (
           <ActivityIndicator size="large" color="#000" />
