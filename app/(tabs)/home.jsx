@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import WallpaperCard from "../../components/WallpaperCard";
 import ScreenWrapper from "../../components/ScreenWrapper";
-import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 import Header from "../../components/Header";
 
 const Home = () => {

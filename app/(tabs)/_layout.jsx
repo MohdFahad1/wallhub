@@ -5,49 +5,65 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: "blue",
         headerShown: false,
+        tabBarShowLabel: false,
+
+        tabBarItemStyle: {
+          borderRadius: 30,
+          marginHorizontal: 8,
+          marginVertical: 10,
+          overflow: "hidden",
+        },
+
+        // ICON COLORS
+        tabBarActiveTintColor: "white",
+        tabBarInactiveTintColor: "black",
+
+        // PILL BACKGROUNDS
+        tabBarActiveBackgroundColor: "#000",
+        tabBarInactiveBackgroundColor: "transparent",
+
         tabBarStyle: {
-          backgroundColor: "#e3e3e3",
+          position: "absolute",
+          height: 60,
           borderTopWidth: 0,
+          borderTopLeftRadius: 30,
+          borderTopRightRadius: 30,
           elevation: 5, // Android shadow
           shadowOpacity: 0.1, // iOS shadow
+          backgroundColor: "#fff",
         },
       }}
     >
       <Tabs.Screen
         name="home"
         options={{
-          title: "Home",
           tabBarIcon: ({ color }) => (
-            <FontAwesome size={28} name="home" color={color} />
+            <FontAwesome name="home" size={28} color={color} />
           ),
         }}
       />
       <Tabs.Screen
         name="categories"
         options={{
-          title: "Categories",
           tabBarIcon: ({ color }) => (
-            <FontAwesome size={28} name="th-list" color={color} />
+            <FontAwesome name="th-list" size={28} color={color} />
           ),
         }}
       />
       <Tabs.Screen
         name="search"
         options={{
-          title: "Search",
           tabBarIcon: ({ color }) => (
-            <FontAwesome size={28} name="search" color={color} />
+            <FontAwesome name="search" size={28} color={color} />
           ),
         }}
       />
       <Tabs.Screen
         name="favourites"
         options={{
-          title: "Favourites",
           tabBarIcon: ({ color }) => (
-            <FontAwesome size={28} name="heart" color={color} />
+            <FontAwesome name="heart" size={28} color={color} />
           ),
         }}
       />
