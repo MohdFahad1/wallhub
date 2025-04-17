@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, ActivityIndicator } from "react-native";
+import { View, Text, ActivityIndicator, Pressable } from "react-native";
 import ScreenWrapper from "../../../../components/ScreenWrapper";
-import { useLocalSearchParams } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import axios from "axios";
 import WallpaperCard from "../../../../components/WallpaperCard";
-import { heightPercentageToDP as hp } from "react-native-responsive-screen";
+import Header from "../../../../components/Header";
+import { Ionicons } from "@expo/vector-icons";
+import BackButton from "../../../../components/BackButton";
 
 const Wallpapers = () => {
   const [wallpapers, setWallpapers] = useState([]);
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   const { category, name } = useLocalSearchParams();
 
@@ -32,9 +35,16 @@ const Wallpapers = () => {
 
   return (
     <ScreenWrapper>
-      <Text className="font-bold text-center" style={{ fontSize: hp(4) }}>
-        {name}
-      </Text>
+      <View>
+        <BackButton
+          style={{
+            top: 10,
+            left: 20,
+            backgroundColor: "#e3e3e3",
+          }}
+        />
+        <Header heading={name} />
+      </View>
       {loading ? (
         <View className="items-center justify-center flex-1 w-full h-full">
           <ActivityIndicator size={"large"} color={"#000"} />
