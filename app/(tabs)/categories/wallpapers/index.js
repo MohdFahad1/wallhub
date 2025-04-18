@@ -5,14 +5,11 @@ import { useLocalSearchParams, useRouter } from "expo-router";
 import axios from "axios";
 import WallpaperCard from "../../../../components/WallpaperCard";
 import Header from "../../../../components/Header";
-import { Ionicons } from "@expo/vector-icons";
 import BackButton from "../../../../components/BackButton";
 
 const Wallpapers = () => {
   const [wallpapers, setWallpapers] = useState([]);
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
-
   const { category, name } = useLocalSearchParams();
 
   const fetchWallpapers = async () => {

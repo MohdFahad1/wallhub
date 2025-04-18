@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Text, View } from "react-native";
 import React, { useCallback, useEffect, useState } from "react";
 import ScreenWrapper from "../../components/ScreenWrapper";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -46,7 +46,5 @@ const Favourites = () => {
     </ScreenWrapper>
   );
 };
-
-const styles = StyleSheet.create({});
 
 export default Favourites;
